@@ -55,20 +55,6 @@ class TicTacToe(tk.Frame):
 
         self.play_computer_ai()
 
-    def play_computer(self):
-        if self.board[4] == ' ':
-            self.set_o(4)
-            return
-
-        while True:
-            r = random.randint(0, 8)
-            if self.o_is_available(r):
-                break
-
-        if test_winner(self.o):
-            self.display_about_message_box("O Winner! ")
-            self.reset_game()
-
     def play_computer_ai(self):
         print("Board:", self.board)
         pos, value = self.minimaxv2(self.board, 'O')
