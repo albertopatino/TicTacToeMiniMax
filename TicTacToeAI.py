@@ -1,14 +1,12 @@
+#!/usr/bin/python3
 import tkinter as tk
 # import tkinter.ttk as ttk
 import tkinter.messagebox
-import random
-
+#import random
 
 class Node:
-    pos = 0
-    value = 0
-
     def __init__(self):
+
         self.pos = 0
         self.value = 0
 
@@ -28,10 +26,12 @@ class TicTacToe(tk.Frame):
         i = 0
         for x in range(3):
             for y in range(3):
-                # self.btn = ttk.Button(master, image=self.space_image, command=lambda x=i: self.play_human(x))
-                self.btn = tk.Button(master, image=self.space_image, command=lambda loc=i: self.button_pressed(loc))
-                self.btn.image = self.space_image
+                #self.btn = tk.Button(master, command=lambda loc=i: self.button_pressed(loc))
+                self.btn = tk.Button(master, command=lambda i=i: self.button_pressed(i))
+                #self.btn.image = self.space_image
+                self.btn.configure(image=self.space_image)
                 self.btn.grid(row=x, column=y)
+                
                 self.buttons.append(self.btn)
                 i += 1
                 # print(i, x, y, len(self.buttons))
@@ -43,6 +43,7 @@ class TicTacToe(tk.Frame):
         if not self.x_is_available(i):
             return
 
+        print("Board:", self.board)
         if test_winner(self.x):
             self.display_about_message_box("Ganaste Humano!!!!")
             self.reset_game()
@@ -56,11 +57,12 @@ class TicTacToe(tk.Frame):
         self.play_computer_ai()
 
     def play_computer_ai(self):
-        print("Board:", self.board)
+        
         pos, value = self.minimaxv2(self.board, 'O')
 
         # print("ai pos =", pos, value)
         self.o_is_available(pos)
+        print("Board:", self.board)
         print("Calls: ", self.calls)
 
         self.calls = 0
